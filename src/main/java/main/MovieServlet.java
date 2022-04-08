@@ -12,7 +12,8 @@ import javax.servlet.annotation.WebServlet;
 @WebServlet(name = "MovieServlet", urlPatterns = "/movies/*")
 public class MovieServlet extends HttpServlet{
 
-    private InMemoryMoviesDao dao = new InMemoryMoviesDao();
+//    private InMemoryMoviesDao dao = new InMemoryMoviesDao();
+    private MySqlMoviesDao dao = new MySqlMoviesDao();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response){
@@ -77,5 +78,10 @@ public class MovieServlet extends HttpServlet{
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void destroy(){
+        dao.cleanUp();
     }
 }
