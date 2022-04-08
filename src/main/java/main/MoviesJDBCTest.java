@@ -9,14 +9,11 @@ public class MoviesJDBCTest {
     public static void main(String[] args) throws SQLException {
         DriverManager.registerDriver(new Driver());
         Connection connection = DriverManager.getConnection(
-                "jdbc:mysql://" + Config.DB_HOST + ":3306/micah?allowPublicKeyRetrieval=true&useSSL=false",
-                Config.DB_USER,
-                Config.DB_PW
+                "jdbc:mysql://" + Config.getUrl() + ":3306/micah?allowPublicKeyRetrieval=true&useSSL=false",
+                Config.getUser(),
+                Config.getPassword()
         );
-        String selectQuery = "Select * From movie";
-
-        Statement stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery(selectQuery);
+        connection.close();
 
 
     }
