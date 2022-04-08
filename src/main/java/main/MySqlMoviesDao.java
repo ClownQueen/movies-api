@@ -91,6 +91,80 @@ public class MySqlMoviesDao extends Movie {
 
     public void update(Movie movie) throws SQLException {
         //TODO: Update a movie here!
+        //assumption: movie only has the fields that we need to update
+        //"Update movies set title = 'new title' where id = xxx"
+        //"Update movies set title = 'new title', rating = 5 where id = xxx"
+        String query = "Updated movies set ";
+        if (movie.getTitle() != null){
+            query += " title = ?,";
+        }
+        if (movie.getYear() != null){
+            query += " year = ?,";
+        }
+        if (movie.getGenre() != null){
+            query += " genre = ?,";
+        }
+        if (movie.getDirector() != null){
+            query += " director = ?,";
+        }
+        if (movie.getActors() != null){
+            query += " actors = ?,";
+        }
+        if (movie.getRating() != null){
+            query += " rating = ?,";
+        }
+        if (movie.getPoster() != null){
+            query += " poster = ?,";
+        }
+        if (movie.getPlot() != null){
+            query += " plot = ?,";
+        }
+        // get rid of trailing comma
+        query = query.substring(0, query.length() - 1);
+        query += " where id = ? ";
+
+        //create prepared statement from the query string
+        PreparedStatement ps = connection.prepareStatement(query);
+
+        // set the parameters for the query based on the fields that need to be updated
+        int currentIndex = 1;
+        if (movie.getTitle() != null){
+            ps.setString(currentIndex, movie.getTitle());
+            currentIndex++;
+        }
+        if (movie.getYear() != null){
+            ps.setInt(currentIndex, movie.getYear());
+            currentIndex++;
+        }
+        if (movie.getGenre() != null){
+            ps.setString(currentIndex, movie.getGenre());
+            currentIndex++;
+        }
+        if (movie.getDirector() != null){
+            ps.setString(currentIndex, movie.getDirector());
+            currentIndex++;
+        }
+        if (movie.getActors() != null){
+            ps.setString(currentIndex, movie.getActors());
+            currentIndex++;
+        }
+        if (movie.getRating() != null){
+            ps.setInt(currentIndex, movie.getRating());
+            currentIndex++;
+        }
+        if (movie.getPoster() != null){
+            ps.setString(currentIndex, movie.getPoster());
+            currentIndex++;
+        }
+        if (movie.getPlot() != null){
+            ps.setString(currentIndex, movie.getPlot());
+            currentIndex++;
+        }
+        ps.setInt(currentIndex, movie.getId());
+
+        //execute the darn statement
+        ps.executeUpdate();
+        ps.close();
     }
 
 
