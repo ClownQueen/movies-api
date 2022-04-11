@@ -69,6 +69,11 @@ public class InMemoryMoviesDao {
         }
     }
 
+//    @Override
+//    public void cleanup() throws SQLException {
+//        //ignore for now
+//    }
+
     // NO SUPPORT YET
 
     public Movie findOne(int id) {
