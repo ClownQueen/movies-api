@@ -56,7 +56,30 @@ public class MySqlMoviesDao extends Movie {
 
     public Movie findOne(int id) {
         // TODO: Get one movie by id
-        return null;
+        Movie movie = null;
+        try{
+            PreparedStatement ps = connection.prepareStatement("select * from micah.movie where id = ?");
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            movie = new Movie();
+            movie.setId(rs.getInt("id"));
+            movie.setTitle(rs.getString("title"));
+            movie.setYear(rs.getInt("year"));
+            movie.setGenre(rs.getString("genre"));
+            movie.setDirector(rs.getString("director"));
+            movie.setActors(rs.getString("actors"));
+            movie.setRating(rs.getInt("rating"));
+            movie.setPoster(rs.getString("poster"));
+            movie.setPlot(rs.getString("plot"));
+
+            rs.close();
+            ps.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return movie;
     }
 
 
@@ -94,7 +117,7 @@ public class MySqlMoviesDao extends Movie {
         //assumption: movie only has the fields that we need to update
         //"Update movies set title = 'new title' where id = xxx"
         //"Update movies set title = 'new title', rating = 5 where id = xxx"
-        String query = "Updated movies set ";
+        String query = "Update micah.movie set ";
         if (movie.getTitle() != null){
             query += " title = ?,";
         }
@@ -170,6 +193,15 @@ public class MySqlMoviesDao extends Movie {
 
     public void delete(int id) throws SQLException {
         //TODO: Annihilate a movie
+        //1. make a prepared statement and assemble the delete query
+        PreparedStatement ps = connection.prepareStatement("delete from micah.movie where id = ?");
+        //2.
+        ps.setInt(1, id);
+        //3.execute statement
+        ps.executeUpdate();
+
+        //Deal with going over array id
+
     }
 
     public void cleanUp(){
