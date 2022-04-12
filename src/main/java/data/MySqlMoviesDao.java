@@ -1,4 +1,4 @@
-package main;
+package data;
 
 import com.mysql.cj.jdbc.Driver;
 import config.Config;
@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySqlMoviesDao extends Movie {
+public class MySqlMoviesDao implements MoviesDao {
 
     private Connection connection = null;
 

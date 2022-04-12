@@ -1,12 +1,13 @@
-package main;
+package data;
 
 import data.Movie;
+import data.MoviesDao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InMemoryMoviesDao {
+public class InMemoryMoviesDao implements MoviesDao {
     private ArrayList<Movie> movies = new ArrayList<>();
     private int nextId = 1;
 
@@ -69,10 +70,10 @@ public class InMemoryMoviesDao {
         }
     }
 
-//    @Override
-//    public void cleanup() throws SQLException {
-//        //ignore for now
-//    }
+    @Override
+    public void cleanUp() throws SQLException {
+
+    }
 
     // NO SUPPORT YET
 
